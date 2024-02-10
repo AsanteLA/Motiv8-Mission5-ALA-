@@ -1,0 +1,74 @@
+﻿
+
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-2">Get a quote</h1>
+        <h3 class="mb-5"><em>Athlete and Public Speaker</em></h3>
+        <form id="quoteCalculator">
+            <label for="hours">Enter Hours Needed:</label> <br>
+            <input type="number" id="hours" name="hours" min="1" max="100" required><br>
+
+            <label for="ApptType">Select Job Type:</label> <br>
+            <select id="ApptType" name="jobType" onchange="updateRate()">
+                <option value="1">Phone Call</option>
+                <option value="2">Group Discussions</option>
+                <option value="3">Devotionals</option>
+                <option value="4">Student Engagement</option>
+            </select>
+            <br>
+            <label for="rate">Hourly Rate:</label> <br>
+            <input type="text" id="rate" name="rate" readonly><br><br>
+        </form>
+        <a class="btn btn-primary btn-xl" href="#about" onclick="calcQuote()">Get my Quote!</a>
+
+        <br><br><br>
+
+        <h2 class="mb-2" id="totalQuote"></h2>
+        <p class="mb-2"> All quotes are newgotiable, feel free to contact us and we can work something out! We are here for you!</p>
+    </div>
+</header>
+
+<script>
+
+    // Initialize the readonly input with the default rate when the page loads
+    window.onload = function () {
+        updateRate();
+    };
+    function updateRate() {
+        // Get the selected value from the dropdown
+        var selectedOption = document.getElementById("ApptType").value;
+
+        // Set the corresponding hourly rate based on the selected option
+        var hourlyRates = {
+            "1": 10,
+            "2": 500,
+            "3": 1000,
+            "4": 350
+        };
+
+        // Update the readonly input with the hourly rate
+        document.getElementById("rate").value = hourlyRates[selectedOption];
+    }
+
+    function calcQuote() {
+        // Get the number of hours from the input
+        var hours = document.getElementById("hours").value;
+
+        if (hours < 1) {
+            alert("Please enter a valid number of hours");
+            return;
+        }
+
+        // Get the hourly rate from the input
+        var rate = document.getElementById("rate").value;
+
+        // Calculate the total cost
+        var total = hours * rate;
+
+        // Display the total cost
+        //alert("Your total cost is: $" + total);
+
+        // Update the content of the h1 tag with the total quote
+        document.getElementById("totalQuote").textContent = "Total Quote: $" + total.toFixed(2);
+    }
+</script>
